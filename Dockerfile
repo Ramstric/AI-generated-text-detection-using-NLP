@@ -1,0 +1,28 @@
+# Use the official Python image from the Docker Hub
+FROM python:3.10-slim-buster
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the dependencies
+RUN pip install -r requirements.txt
+
+# Copy the rest of the application code into the container
+COPY app .
+
+EXPOSE 8080
+
+ENTRYPOINT ["python"]
+
+# Define the command to run the application
+CMD ["app.py",  "--host=0.0.0.0"]
+
+# Run docker build --tag northamerica-northeast1-docker.pkg.dev/ai-detection-demo-452904/ai-detection-api/api-demo .
+# gcloud auth login
+# gcloud auth print-access-token ramstric@gmail.com
+# docker login -u oauth2accesstoken -p "ya29.a0AeXRPp4yKMycxihsMrHyFy79SLiDOtTbwwl_b1BnNT-F2JaAopU_6waxtLEv8UnJoXZc8u_xiPi-nhT2B7VNQn5RwQKof7i-ZqBVO9GjF1gHKFzbwBkuOLrWJpuvR4RVZWOY17TipZk8PAIWkEjwDpH3dMXkpxbgrDlbxSumBx3KXQaCgYKAaYSARESFQHGX2MiX3VJ8RR9k_J8kZHbYZNSog0181" https://northamerica-northeast1-docker.pkg.dev
+# docker push northamerica-northeast1-docker.pkg.dev/ai-detection-demo-452904/ai-detection-api/api-demo
+# Test with curl -X POST "https://api-demo-182443968648.northamerica-northeast1.run.app:8080/api/predict" -d text="This is a test"
