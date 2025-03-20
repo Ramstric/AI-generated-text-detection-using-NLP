@@ -44,6 +44,8 @@ def predict():
         tokens = tokenize(text)
         prediction = models[_model].predict(tokens)
         answer_prediction[_model] = int(prediction[0])
+        if _model != 'SVC':
+            answer_prediction[_model+'_proba'] = models[_model].predict_proba(tokens)[0].tolist()
 
     response = jsonify(answer_prediction)
     response.headers.add('Access-Control-Allow-Origin', '*')
